@@ -1,11 +1,11 @@
 <a id="readme-top"></a>
 
-# Typing Test
+# Typing Tester
 
 This app is a modern, minimalist web-based typing speed and accuracy tester. It provides a clean interface to measure your typing speed, accuracy, and character statistics with configurable test modes and dynamic feedback.
 
 <p align="left">
-
+   <img width="600" alt="image" src="https://github.com/user-attachments/assets/d3da27d8-3d8d-4c1d-a24d-6fbf5155616c"/>
 </p>
 
 ## Description
