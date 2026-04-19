@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Typing Tester</title>
+    <meta name="description" content="A simple typing test app.">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    
+    <div class="container">
+        <header>
+            <div class="logo"></div>
+            <div class="settings">
+                <button id="theme-toggle" class="icon-btn" aria-label="Toggle Theme">
+                    <svg id="theme-icon-moon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: none;"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+                    <svg id="theme-icon-sun" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
+                </button>
+                <div class="mode-group">
+                    <button class="mode-btn active" data-mode="time">time</button>
+                    <button class="mode-btn" data-mode="words">words</button>
+                </div>
+                <div class="divider"></div>
+                <div class="options-group" id="time-options">
+                    <button class="option-btn" data-val="15">15</button>
+                    <button class="option-btn active" data-val="30">30</button>
+                    <button class="option-btn" data-val="60">60</button>
+                </div>
+                <div class="options-group hidden" id="words-options">
+                    <button class="option-btn" data-val="10">10</button>
+                    <button class="option-btn active" data-val="25">25</button>
+                    <button class="option-btn" data-val="50">50</button>
+                </div>
+            </div>
+        </header>
+
+        <div id="results" class="results-container hidden">
+            <div class="stat-card wpm-card">
+                <div class="stat-title">WPM</div>
+                <div class="stat-value" id="wpm-result">0</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-title">ACCURACY</div>
+                <div class="stat-value" id="acc-result">100%</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-title">RAW WPM</div>
+                <div class="stat-value" id="raw-result">0</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-title">CHARACTERS</div>
+                <div class="stat-value char-stats">
+                    <div class="char-stat-group" title="Correct">
+                        <span id="char-correct" class="text-correct">0</span>
+                        <span class="char-label text-correct"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg></span>
+                    </div>
+                    <div class="char-stat-group" title="Incorrect">
+                        <span id="char-incorrect" class="text-incorrect">0</span>
+                        <span class="char-label text-incorrect"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></span>
+                    </div>
+                    <div class="char-stat-group" title="Extra">
+                        <span id="char-extra" class="text-extra">0</span>
+                        <span class="char-label text-extra"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></span>
+                    </div>
+                    <div class="char-stat-group" title="Missed">
+                        <span id="char-missed" class="text-missed">0</span>
+                        <span class="char-label text-missed"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line></svg></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="test-area" class="typing-area">
+            <div class="timer" id="timer">30</div>
+            <div class="words-wrapper">
+                <div class="words-container" id="words-container"></div>
+            </div>
+            <input type="text" id="hidden-input" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" autofocus>
+        </div>
+
+        <div class="controls">
+            <button id="restart-btn" class="restart-btn" aria-label="Restart Test" title="Restart Test (Tab + Enter)">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+            </button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
